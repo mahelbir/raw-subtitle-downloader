@@ -2,7 +2,7 @@
 
 A Chrome extension (Manifest V3) that detects subtitle files requested by web pages and provides one-click downloads.
 
-<img src="images/ss1.png" alt="Raw Subtitle Downloader" width="600">
+<img src="docs/img1.png" alt="Raw Subtitle Downloader" width="600">
 
 ## Features
 
