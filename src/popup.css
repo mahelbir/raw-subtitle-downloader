@@ -1,0 +1,213 @@
+:root {
+  --accent: #ffd60a;
+  --accent-bright: #ffe14d;
+  --danger: #a23b3b;
+  --danger-bright: #b84545;
+  --card: #24262c;
+  --text: #ffffff;
+  --text-dark: #2a1a00;
+  --muted: #9aa0aa;
+  --line: rgba(255, 255, 255, 0.1);
+  --font: -apple-system, BlinkMacSystemFont, system-ui, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 380px;
+  font-family: var(--font);
+  color: var(--text);
+  background: linear-gradient(160deg, #24262c 0%, #1b1d22 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  padding: 20px;
+}
+
+h1 {
+  margin: 0 0 14px;
+  padding-bottom: 14px;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+}
+
+#subtitles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 340px;
+  overflow-y: auto;
+  padding: 12px 4px 0 0;
+}
+
+#subtitles-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#subtitles-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 214, 10, 0.4);
+  border-radius: 8px;
+}
+
+#subtitles-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.subtitle-item {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  transition: background 0.15s ease;
+}
+
+.subtitle-item:hover {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+}
+
+.remove-btn {
+  position: absolute;
+  top: -10px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--muted);
+  background: #33363d;
+  border: 2px solid #1b1d22;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+}
+
+.remove-btn:hover {
+  color: #fff;
+  background: var(--danger);
+}
+
+.remove-btn:active {
+  transform: scale(0.9);
+}
+
+.subtitle-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.subtitle-name {
+  margin-bottom: 3px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.subtitle-also {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.download-btn {
+  flex-shrink: 0;
+  padding: 9px 16px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text-dark);
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.download-btn:hover {
+  background: var(--accent-bright);
+}
+
+.download-btn:active {
+  transform: translateY(1px);
+}
+
+.footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+}
+
+#download-all-btn {
+  padding: 10px 22px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+#download-all-btn:hover {
+  background: var(--accent-bright);
+}
+
+#download-all-btn:active {
+  transform: translateY(1px);
+}
+
+#clear-btn {
+  padding: 10px 22px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--danger);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+#clear-btn:hover {
+  background: var(--danger-bright);
+}
+
+#clear-btn:active {
+  transform: translateY(1px);
+}
+
+#no-subtitles {
+  padding: 30px 10px;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+  color: var(--muted);
+}
+
+.hidden {
+  display: none;
+}

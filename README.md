@@ -1,65 +1,55 @@
 # Raw Subtitle Downloader
 
-Easily detect and download subtitle files from any website while browsing.
+A Chrome extension (Manifest V3) that detects subtitle files requested by web pages and provides one-click downloads.
 
-Raw Subtitle Downloader is a lightweight Chrome extension that automatically detects subtitle files in web requests and provides easy download links. No need to hunt for subtitle files manually!
+## Features
 
-## ❓ How to use
-1. Browse any website that contains or streams videos
-2. The extension automatically detects subtitle file requests in the background
-3. Click on the extension icon to see available subtitles
-4. Click "Download" to save any detected subtitle file
+- Passive detection of subtitle requests via the `webRequest` API
+- Per-tab tracking; entries are cleared when a tab is closed or reloaded
+- Single and bulk downloads through the `downloads` API
+- Per-item removal and clear-all
+- Toolbar badge showing the number of detected files
+- In-memory storage only; no page injection, no persistence, no external requests, no telemetry
 
-## 🚀 Features
-* Completely free and open source!
-* Lightweight – less than 0.1MB!
-* Clean & Simple UI – easy to use!
-* Automatic detection – finds subtitle files while you browse!
-* Supports multiple subtitle formats
-* Tab-specific tracking – clears subtitle history when tabs are no longer active
-* One-click download for any detected subtitle file
-* No registration or account required
+## Installation (unpacked)
 
-## 📄 Supported Subtitle Formats
-- .ass - Advanced SubStation Alpha
-- .cap - Caption Format
-- .dfxp - Distribution Format Exchange Profile
-- .dks - DKS Subtitle Format
-- .idx - VobSub Index File
-- .itt - iTunes Timed Text
-- .jss - JACOsub Subtitle Format
-- .lrc - Lyrics Format
-- .mks - Matroska Subtitle
-- .mpl - MPL2 Subtitle Format
-- .pjs - Phoenix Japanimation Society Subtitles
-- .psb - PowerDivX
-- .qt.txt - QuickTime Text
-- .qttext - QuickTime Text Format
-- .rt - RealText Format
-- .sbv - SubViewer Format
-- .scc - Scenarist Closed Caption
-- .smi - SAMI Subtitle Format
-- .srt - SubRip Subtitle Format
-- .ssa - SubStation Alpha
-- .stl - Spruce Subtitle Format
-- .sub - MicroDVD/SubViewer Subtitle Format
-- .sup - Blu-ray/HD-DVD Supplement
-- .ttml - Timed Text Markup Language
-- .ttml2 - Timed Text Markup Language 2
-- .usf - Universal Subtitle Format
-- .vtt - Web Video Text Tracks
+1. Clone or download this repository.
+2. Open `chrome://extensions`.
+3. Enable **Developer mode**.
+4. Click **Load unpacked** and select the project root (the folder containing
+   `manifest.json`).
 
-## 🔐 Full Privacy
-- We do not collect any data or usage information
-- All detected subtitle information is stored in memory only
-- Data is automatically cleared when you close or refresh tabs
-- No analytics or tracking of any kind
+## Usage
 
-## 🔗 GitHub
-https://github.com/mahelbir/raw-subtitle-downloader
+1. Open any website that plays or streams video.
+2. Click the toolbar icon to see the detected subtitle files.
+3. Download a single file, download them all at once, or remove the ones you don't need.
 
-## 🚩 Report an issue
-https://github.com/mahelbir/raw-subtitle-downloader/issues
+## How it works
 
-## 📜 License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- `src/background.js` runs as the service worker. It listens to
+  `chrome.webRequest.onCompleted` for `http`/`https` responses, matches the URL path against the supported extensions,
+  deduplicates by URL, and keeps each entry in memory.
+- `src/popup.js` requests the current list over `chrome.runtime` messaging, renders it, and starts downloads with
+  `chrome.downloads.download`.
+
+## Permissions
+
+- `webRequest` — read request URLs to detect subtitle files
+- `downloads` — save detected files to disk
+- `host_permissions` (`http://*/*`, `https://*/*`) — observe requests on any site
+
+## File formats
+
+`.ass`, `.cap`, `.dfxp`, `.dks`, `.idx`, `.itt`, `.jss`, `.lrc`, `.mks`, `.mpl`,
+`.pjs`, `.psb`, `.qt.txt`, `.qttext`, `.rt`, `.sbv`, `.scc`, `.smi`, `.srt`,
+`.ssa`, `.stl`, `.sub`, `.sup`, `.ttml`, `.ttml2`, `.usf`, `.vtt`
+
+## Support
+
+If this project helps you, please consider giving it a [Star ⭐️](https://github.com/mahelbir/raw-subtitle-downloader) on GitHub.
+This will encourage us to continue developing and maintaining this project.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.

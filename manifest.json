@@ -1,17 +1,18 @@
 {
   "manifest_version": 3,
   "name": "Raw Subtitle Downloader",
-  "version": "1.0",
-  "description": "Detects and provides download links for subtitle files",
+  "version": "2.0.0",
+  "description": "Detect and download subtitle files from any website while you browse",
   "permissions": [
-    "webRequest"
+    "webRequest",
+    "downloads"
   ],
   "host_permissions": [
     "http://*/*",
     "https://*/*"
   ],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup.html",
     "default_icon": {
       "16": "images/icon16.png",
       "32": "images/icon32.png",
@@ -20,7 +21,7 @@
     }
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background.js"
   },
   "icons": {
     "16": "images/icon16.png",

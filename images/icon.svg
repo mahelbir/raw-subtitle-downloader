@@ -1,0 +1,12 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect id="_r_8_" width="512" height="512" x="0" y="0" rx="128" fill="url(#_r_9_)" stroke="#FFFFFF" stroke-width="0" stroke-opacity="100%" paint-order="stroke"></rect><clipPath id="clip"><use xlink:href="#_r_8_"></use></clipPath><defs><linearGradient id="_r_9_" gradientUnits="userSpaceOnUse" gradientTransform="rotate(45)" style="transform-origin: center center;"><stop stop-color="#F9D91D"></stop><stop offset="1" stop-color="#ffe74b"></stop></linearGradient><radialGradient id="_r_a_" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256) rotate(90) scale(512)"><stop stop-color="white"></stop><stop offset="1" stop-color="white" stop-opacity="0"></stop></radialGradient></defs><svg width="512" height="512" viewBox="0 0 512 512" x="0" y="0" alignment-baseline="middle" style="color: rgb(42, 26, 0); width: 512px; height: 512px;">
+        <style>
+          text {
+           font-family: Inter, sans-serif;
+            font-weight: bold;
+          }
+         </style>
+        <rect width="512" height="512"></rect>
+        <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="245.76" font-family="Arial, sans-serif" fill="#2a1a00">
+        CC
+      </text>
+      </svg></svg>

@@ -29,6 +29,8 @@ const subtitleExtensions = [
     '.vtt'
 ];
 
+const BADGE_COLOR = "#2a1a00";
+
 // Keep track of detected subtitle URLs in memory
 let detectedSubtitles = [];
 
@@ -71,6 +73,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         detectedSubtitles = [];
         updateBadge();
         sendResponse({success: true});
+    } else if (request.action === "removeSubtitle") {
+        detectedSubtitles = detectedSubtitles.filter(sub => sub.url !== request.url);
+        updateBadge();
+        sendResponse({success: true});
     } else if (request.action === "getSubtitles") {
         sendResponse({subtitles: detectedSubtitles});
     }
@@ -100,7 +106,7 @@ function getFileNameFromUrl(url) {
         const lastSegment = segments[segments.length - 1];
 
         // Return the filename or a default if empty
-        return lastSegment || "subtitle";
+        return decodeURIComponent(lastSegment) || "subtitle";
     } catch (e) {
         return "subtitle";
     }
@@ -127,7 +133,7 @@ function getExtensionFromUrl(url) {
 function updateBadge() {
     const count = detectedSubtitles.length;
     chrome.action.setBadgeText({text: count > 0 ? count.toString() : ""});
-    chrome.action.setBadgeBackgroundColor({color: "#0A7DCC"});
+    chrome.action.setBadgeBackgroundColor({color: BADGE_COLOR});
 }
 
 function clearDetectedSubtitlesByTab(tabId) {

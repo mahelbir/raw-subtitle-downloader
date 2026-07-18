@@ -1,0 +1,59 @@
+Raw Subtitle Downloader quietly watches for subtitles as videos load and puts every one it finds a single click away — free, open source, and with no account required.
+
+
+🎬 HOW TO USE
+1. Open any website that plays or streams video.
+2. Click the toolbar icon to see the detected subtitle files.
+3. Download a single file, download them all at once, or remove the ones you don't need.
+
+
+🔒 PRIVACY
+• No data collection and no tracking of any kind
+• Detected subtitles are kept in memory only
+• Everything is cleared when you close or refresh the tab
+
+
+✨ FEATURES
+• Automatic subtitle detection while you browse
+• One-click download, or download every detected file at once
+• Remove individual files or clear the whole list
+• Live count on the toolbar icon
+• Supports many subtitle formats
+• Lightweight, clean interface
+• No account, no registration, completely free
+• Open source
+
+
+📄 SUPPORTED SUBTITLE FORMATS
+.ass — Advanced SubStation Alpha
+.cap — Caption Format
+.dfxp — Distribution Format Exchange Profile
+.dks — DKS Subtitle Format
+.idx — VobSub Index File
+.itt — iTunes Timed Text
+.jss — JACOsub Subtitle Format
+.lrc — Lyrics Format
+.mks — Matroska Subtitle
+.mpl — MPL2 Subtitle Format
+.pjs — Phoenix Japanimation Society Subtitles
+.psb — PowerDivX
+.qt.txt — QuickTime Text
+.qttext — QuickTime Text Format
+.rt — RealText Format
+.sbv — SubViewer Format
+.scc — Scenarist Closed Caption
+.smi — SAMI Subtitle Format
+.srt — SubRip Subtitle Format
+.ssa — SubStation Alpha
+.stl — Spruce Subtitle Format
+.sub — MicroDVD/SubViewer Subtitle Format
+.sup — Blu-ray/HD-DVD Supplement
+.ttml — Timed Text Markup Language
+.ttml2 — Timed Text Markup Language 2
+.usf — Universal Subtitle Format
+.vtt — Web Video Text Tracks
+
+
+💻 OPEN SOURCE
+The complete source code is available on GitHub:
+https://github.com/mahelbir/raw-subtitle-downloader
