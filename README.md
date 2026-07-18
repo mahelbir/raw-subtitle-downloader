@@ -2,6 +2,8 @@
 
 A Chrome extension (Manifest V3) that detects subtitle files requested by web pages and provides one-click downloads.
 
+<img src="images/ss1.png" alt="Raw Subtitle Downloader" width="600">
+
 ## Features
 
 - Passive detection of subtitle requests via the `webRequest` API
@@ -47,8 +49,8 @@ A Chrome extension (Manifest V3) that detects subtitle files requested by web pa
 
 ## Support
 
-If this project helps you, please consider giving it a [Star ⭐️](https://github.com/mahelbir/raw-subtitle-downloader) on GitHub.
-This will encourage us to continue developing and maintaining this project.
+If this project helps you, please consider giving it a [Star ⭐️](https://github.com/mahelbir/raw-subtitle-downloader) on
+GitHub. This will encourage us to continue developing and maintaining this project.
 
 ## License
 
