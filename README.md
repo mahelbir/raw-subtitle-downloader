@@ -23,9 +23,10 @@ A Chrome extension (Manifest V3) that detects subtitle files requested by web pa
 
 ## Usage
 
-1. Open any website that plays or streams video.
-2. Click the toolbar icon to see the detected subtitle files.
-3. Download a single file, download them all at once, or remove the ones you don't need.
+1. Open any website that streams video.
+2. Play the video and/or change the subtitle track so the file loads.
+3. Click the toolbar icon to see the detected subtitle files.
+4. Download a single file, download them all at once, or remove the ones you don't need.
 
 ## How it works
 
