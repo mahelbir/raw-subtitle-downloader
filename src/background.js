@@ -1,4 +1,3 @@
-// Subtitle file extensions
 const subtitleExtensions = [
     '.ass',
     '.cap',
@@ -29,43 +28,8 @@ const subtitleExtensions = [
     '.vtt'
 ];
 
-const BADGE_COLOR = "#2a1a00";
-
 // Keep track of detected subtitle URLs in memory
 let detectedSubtitles = [];
-
-// Listen for web requests that might be subtitle files
-chrome.webRequest.onCompleted.addListener(
-    (details) => {
-        // Check if the URL contains a subtitle extension
-        if (details.url && details.statusCode === 200 && details.tabId) {
-            const url = details.url.toLowerCase();
-
-            for (const ext of subtitleExtensions) {
-                if (url.endsWith(ext)) {
-                    // Store unique subtitle URLs
-                    if (!detectedSubtitles.some(sub => sub.url === details.url)) {
-                        const fileName = getFileNameFromUrl(details.url);
-                        const extension = getExtensionFromUrl(details.url);
-
-                        detectedSubtitles.push({
-                            tabId: details.tabId,
-                            url: details.url,
-                            fileName: fileName,
-                            extension: extension,
-                            timestamp: Date.now()
-                        });
-
-                        // Update the badge to show number of available subtitles
-                        updateBadge();
-                        break;
-                    }
-                }
-            }
-        }
-    },
-    {urls: ["http://*/*", "https://*/*"]}
-);
 
 // Listen for messages from popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -83,6 +47,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true; // Keep message channel open for async response
 });
 
+// Listen for web requests that might be subtitle files
+chrome.webRequest.onCompleted.addListener(
+    (details) => {
+        // Check if the URL path contains a subtitle extension
+        if (details.tabId && details.url && (details.statusCode >= 200 && details.statusCode <= 299)) {
+            const pathname = getPathname(details.url);
+            const extension = getExtension(pathname);
+
+            // Store unique subtitle URLs
+            if (extension && !detectedSubtitles.some(sub => sub.url === details.url)) {
+                detectedSubtitles.push({
+                    tabId: details.tabId,
+                    url: details.url,
+                    fileName: getFileName(pathname),
+                    extension: extension,
+                    timestamp: Date.now()
+                });
+
+                // Update the badge to show number of available subtitles
+                updateBadge();
+            }
+        }
+    },
+    {urls: ["http://*/*", "https://*/*"]}
+);
+
 // Clear detected subtitles when tab is closed
 chrome.tabs.onRemoved.addListener((tabId) => {
     clearDetectedSubtitlesByTab(tabId);
@@ -97,43 +87,59 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
     }
 });
 
-// Extract filename from URL
-function getFileNameFromUrl(url) {
-    try {
-        const urlObj = new URL(url);
-        const pathname = urlObj.pathname;
-        const segments = pathname.split('/');
-        const lastSegment = segments[segments.length - 1];
+// Optimized pathname extraction without URL object
+function getPathname(url) {
+    let end = url.length;
 
-        // Return the filename or a default if empty
+    const hash = url.indexOf('#');
+    if (hash !== -1) {
+        end = hash;
+    }
+
+    const query = url.indexOf('?');
+    if (query !== -1 && query < end) {
+        end = query;
+    }
+
+    const schemeEnd = url.indexOf('://');
+    const authorityStart = schemeEnd === -1 ? 0 : schemeEnd + 3;
+
+    const pathStart = url.indexOf('/', authorityStart);
+    if (pathStart === -1 || pathStart >= end) {
+        return "/";
+    }
+
+    return url.slice(pathStart, end);
+}
+
+function getFileName(pathname) {
+    const segments = pathname.split('/');
+    const lastSegment = segments[segments.length - 1];
+
+    try {
         return decodeURIComponent(lastSegment) || "subtitle";
     } catch (e) {
-        return "subtitle";
+        return lastSegment || "subtitle";
     }
 }
 
-// Extract extension from URL
-function getExtensionFromUrl(url) {
-    try {
-        const urlObj = new URL(url);
-        const pathname = urlObj.pathname.toLowerCase();
+function getExtension(pathname) {
+    const lowerPath = pathname.toLowerCase();
 
-        for (const ext of subtitleExtensions) {
-            if (pathname.endsWith(ext)) {
-                return ext;
-            }
+    for (const ext of subtitleExtensions) {
+        if (lowerPath.endsWith(ext)) {
+            return ext;
         }
-        return "";
-    } catch (e) {
-        return "";
     }
+
+    return "";
 }
 
 // Update badge with count of available subtitles
 function updateBadge() {
     const count = detectedSubtitles.length;
     chrome.action.setBadgeText({text: count > 0 ? count.toString() : ""});
-    chrome.action.setBadgeBackgroundColor({color: BADGE_COLOR});
+    chrome.action.setBadgeBackgroundColor({color: "#2a1a00"});
 }
 
 function clearDetectedSubtitlesByTab(tabId) {
