@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag matches manifest.json version
+        run: |
+          MANIFEST_VERSION=$(jq -r '.version' manifest.json)
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$MANIFEST_VERSION" != "$TAG_VERSION" ]; then
+            echo "Version mismatch: manifest.json=$MANIFEST_VERSION tag=$GITHUB_REF_NAME"
+            exit 1
+          fi
+
+      - name: Build extension zip
+        run: |
+          zip -r "raw-subtitle-downloader-${GITHUB_REF_NAME}.zip" \
+            manifest.json \
+            src \
+            images/*.png \
+            -x '*.DS_Store'
+
+      - name: Generate release notes
+        id: cliff
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --latest --strip all --skip-commit ${{ github.sha }}
+        env:
+          GIT_CLIFF__GIT__FILTER_UNCONVENTIONAL: false
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          name: ${{ github.ref_name }}
+          body: ${{ steps.cliff.outputs.content }}
+          files: raw-subtitle-downloader-${{ github.ref_name }}.zip
